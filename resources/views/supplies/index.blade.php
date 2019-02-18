@@ -104,7 +104,6 @@
                 <div class="form-group col-sm-9 col-sm-offset-1">
                 <label for="name">Supplier:</label>
                     <select name="supplier_id" id="supplier_id" class="form-control">
-                        <option value="0">Anonymous</option>
                         @foreach($suppliers as $supplier)
                         <option value="{{ $supplier->id }}">{{ $supplier->supplier }}</option>
                         @endforeach
@@ -153,7 +152,7 @@
             <thead><tr><th>Status</th><th>Supplier</th><th>Goods supplied</th><th>Description</th><th>Last supply</th></tr></thead>
                 <tbody>
                     @foreach($supplies as $supply)
-                    <?php $goods = json_decode($supply->goods_supplied,true); ?>
+                    <?php $goods = $supply->goods_supplied; ?>
                     <tr>
                         <td>
                             @if($supply->complete)

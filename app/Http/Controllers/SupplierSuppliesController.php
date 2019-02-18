@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\Supplies;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SupplierSuppliesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +36,15 @@ class SupplierSuppliesController extends Controller
             'description' => 'required|string|min:8',
             'complete' => ''
         ]);
-        $data['goods_supplied'] = json_encode($data['goods_supplied']);
+        $goods = $data['goods_supplied'];
+        $data['goods_supplied'] = implode(',',$data['goods_supplied']);
+        $products = Product::all()->whereIn('id', $goods);
         $data['complete'] = request()->has('complete');
         Supplies::create($data);
+        foreach($products as $product){
+            $update = ['updated_at' => time() ];
+            $product->update($update);
+        }
         return back();
     }
 

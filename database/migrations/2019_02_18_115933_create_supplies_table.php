@@ -16,7 +16,7 @@ class CreateSuppliesTable extends Migration
         Schema::create('supplies', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('supplier_id');
-            $table->text('goods_supplied');
+            $table->string('goods_supplied');
             $table->text('description');
             $table->boolean('complete');
             $table->timestamps();

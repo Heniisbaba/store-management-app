@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class SuppliesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
      /**
      * Display a listing of the resource.
      *
@@ -42,7 +46,7 @@ class SuppliesController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'supplier' => 'required|min:3|max:128|unique:suppliers,supplier'
+            'supplier' => 'required|min:3|max:128|unique:suppliers,supplier',
         ]);
         Supplier::create($data);
         return redirect('/supplies');
