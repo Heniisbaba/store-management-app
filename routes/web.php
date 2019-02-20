@@ -21,7 +21,10 @@ Route::resource('categories', 'CategoryController');
 Route::resource('brands', 'BrandController');
 Route::resource('supplies', 'SuppliesController');
 Route::post('/supply', 'SupplierSuppliesController@create');
+Route::post('/search', 'ajaxController@search');
 Route::get('/', 'IndexController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/search', 'ajaxController@index');

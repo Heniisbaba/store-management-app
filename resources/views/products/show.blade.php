@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title-and-meta')
-    <title>Store | Admins</title>
+    <title>Store | Product</title>
     <link rel="stylesheet" href="/fotorama/fotorama.css">
 @endsection
 
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover table-condensed">
                 <thead class="bg-aqua-gradient">
                     <tr>
                         <th>Name</th>

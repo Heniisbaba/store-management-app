@@ -14,15 +14,24 @@
 @endsection
 
 @section('content')
+
+
 <div class="col-md-6">
     <div class="box box-danger">
         <div class="box-header with-border">
-            <h3 class="box-title">Stock</h3>
+            <h3 class="box-title">Register purchase</h3>
             <div class="box-tools pull-right">
             </div>
         </div>
         <div class="box-body">
-            
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon bg-navy">Search</span>
+                    <input type="search" name="search" id="input-search" class="form-control" value="" required="required" placeholder="Search by Product name">
+                </div>
+            </div>
+
+            <div id="result"></div>
         </div>
     </div>
 </div>
@@ -48,6 +57,8 @@
                 @endforeach
                 </tbody>
             </table>
+
+            <a href="/search">go</a>
         </div>
     </div>
 </div>
@@ -71,6 +82,48 @@
             'info'        : true,
             'autoWidth'   : false
             })
+
+            $('#example3').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
+            })
         })
+
+        $(document).ready(function(){
+            $('#input-search').change(function(){
+                $('#result').html('');
+                var text = $(this).val();
+                if (text != '') {
+                    $('#result').html('');
+                    $.ajax({
+                        url: '/search',
+                        method: 'post',
+                        data: { 
+                            _token: '{{csrf_token()}}',
+                            search: text},
+                        success: function(data){
+                            table = '<table id="example3" class="table table-bordered table-hover">';
+                            table += '<thead><tr><th>Products</th><th>Quantity</th><th>Stock</th><th>Price</th></tr></thead>';
+                            table += '<tbody>';
+                            for (let i = 0; i < data.success.length; i++) {
+                                table += '<tr><td><a href="/products/'+data.success[i].id+'" class="btn btn-xs btn-success"><i class="fa fa-shopping-cart"></i></a></td>';
+                                table += '<td>'+data.success[i].product_name+'</td>';
+                                table += '<td>'+data.success[i].physical_quantity+' '+data.success[i].physical_quantity_units+'</td>';
+                                table += '<td>'+data.success[i].stock_quantity+' units</td>';
+                                table += '<td>'+data.success[i].selling_price+' units</td>';
+                                table += '</tr>';
+                            }
+                            table += '</tbody></table>'
+                            $('#result').html(table);
+                        }
+                    });
+                }
+            });
+        });
     </script>
+    
 @endsection
