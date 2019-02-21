@@ -22,6 +22,7 @@ Route::resource('brands', 'BrandController');
 Route::resource('supplies', 'SuppliesController');
 Route::post('/supply', 'SupplierSuppliesController@create');
 Route::post('/search', 'ajaxController@search');
+Route::post('/itempurchase', 'ajaxController@purchase');
 Route::get('/', 'IndexController@index');
 Auth::routes();
 

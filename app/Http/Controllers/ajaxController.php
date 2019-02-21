@@ -9,11 +9,13 @@ use App\Product;
 
 class ajaxController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $text = '%%';
-        $products = DB::table('products')->where('product_name','like',$text)->get();
-        return $products;
+        $this->middleware('auth');
+    }
+    public function purchase(Product $product)
+    {
+        return response()->json(['success' => 'Success']);
     }
     public function search()
     {
@@ -21,7 +23,7 @@ class ajaxController extends Controller
             'search' => 'required|max:24|',
         ]);
         $text = '%'.$data['search'].'%';
-        $text = '%%';
+        // $text = '%%';
         $products = DB::table('products')->where('product_name','like',$text)->get();
         return response()->json(['success' => $products]);
     }

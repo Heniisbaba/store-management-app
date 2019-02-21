@@ -107,20 +107,37 @@
                             search: text},
                         success: function(data){
                             table = '<table id="example3" class="table table-bordered table-hover">';
-                            table += '<thead><tr><th>Products</th><th>Quantity</th><th>Stock</th><th>Price</th></tr></thead>';
+                            table += '<thead><tr><th>Action</th><th>Products</th><th>Quantity</th><th>Stock</th><th>Price</th></tr></thead>';
                             table += '<tbody>';
                             for (let i = 0; i < data.success.length; i++) {
-                                table += '<tr><td><a href="/products/'+data.success[i].id+'" class="btn btn-xs btn-success"><i class="fa fa-shopping-cart"></i></a></td>';
+                                table += '<tr><td><input type="hidden" id="purchase_id" value="'+data.success[i].id+'">'+
+                                '<button onclick="purchase()" class="btn btn-xs btn-success"><i class="fa fa-shopping-cart"></i></button></td>';
                                 table += '<td>'+data.success[i].product_name+'</td>';
                                 table += '<td>'+data.success[i].physical_quantity+' '+data.success[i].physical_quantity_units+'</td>';
                                 table += '<td>'+data.success[i].stock_quantity+' units</td>';
-                                table += '<td>'+data.success[i].selling_price+' units</td>';
+                                table += '<td>'+data.success[i].selling_price+' </td>';
                                 table += '</tr>';
                             }
                             table += '</tbody></table>'
                             $('#result').html(table);
                         }
                     });
+                }
+            });
+        });
+
+        $('#purchase').click(function(){
+            alert('Success')
+            var purchaseId = $('#purchase_id').val();
+            $.ajax({
+                url: '/itempurchase/'+purchaceId,
+                method: 'post',
+                data: { 
+                    _token: '{{csrf_token()}}',
+                    // product: purchaceId
+                },
+                success: function(data){
+                    alert(data.success)
                 }
             });
         });
