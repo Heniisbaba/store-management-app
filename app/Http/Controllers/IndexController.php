@@ -18,10 +18,6 @@ class IndexController extends Controller
     {
         $supplies = Supplies::all();
         $products = Product::all();
-        $count['categories'] = Category::count();
-        $count['brands'] = Brand::count();
-        $count['products'] = Product::count();
-        $count['supplies'] = Supplies::count();
-        return view('index',compact('products','supplies','count'));
+        return view('index',compact('products','supplies'));
     }
 }

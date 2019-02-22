@@ -13,9 +13,9 @@ class ajaxController extends Controller
     {
         $this->middleware('auth');
     }
-    public function purchase(Product $product)
+    public function show(Product $product)
     {
-        return response()->json(['success' => 'Success']);
+        return response()->json(['purchase' => $product]);
     }
     public function search()
     {
@@ -23,8 +23,11 @@ class ajaxController extends Controller
             'search' => 'required|max:24|',
         ]);
         $text = '%'.$data['search'].'%';
-        // $text = '%%';
         $products = DB::table('products')->where('product_name','like',$text)->get();
         return response()->json(['success' => $products]);
+    }
+    public function register()
+    {
+
     }
 }
