@@ -57,8 +57,6 @@
                 @endforeach
                 </tbody>
             </table>
-
-            <a href="/search">go</a>
         </div>
     </div>
 </div>
@@ -74,66 +72,64 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                <!-- <form action="/purchase" method="post"> -->
-                    {{ csrf_field() }}
-                        <div class="form-group col-md-6"><label for="name">Name:</label>
-                            <input type="text" id="product_name" disabled value="" class="form-control">
+                <p id="image"></p>
+                    <div class="form-group col-md-6"><label for="name">Name:</label>
+                        <input type="text" id="product_name" disabled value="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6"><label for="size">Size:</label>
+                        <input type="text"  name="size" id="size" disabled value="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6"><label for="rate">Rate/Price:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon bg-blue">&#8358;</span>
+                            <input type="text" id="rate" class="form-control" disabled value="">
                         </div>
-                        <div class="form-group col-md-6"><label for="size">Size:</label>
-                            <input type="text" id="size" disabled value="" class="form-control">
+                    </div>
+                    <div class="form-group col-md-6"><label for="rate">Stock:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon bg-blue"><i class="fa fa-truck"></i></span>
+                            <input type="text" id="stock" class="form-control" disabled value="">
                         </div>
-                        <div class="form-group col-md-6"><label for="rate">Rate/Price:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon bg-blue">&#8358;</span>
-                                <input type="text" id="rate" class="form-control" disabled value="">
+                    </div>
+                    <div class="form-group col-md-6"><label for="customer_name">Customer Name:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon bg-blue"><i class="fa fa-user"></i></span>
+                            <input type="text" name="customer_name" id="customer_name" class="form-control"  value="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6"><label for="phone">Customer Phone:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon bg-blue"><i class="fa fa-phone"></i></span>
+                            <input type="text" name="customer_phone" id="customer_phone" class="form-control"  value="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6"><label for="mail">Customer Mail:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon bg-blue"><i class="fa fa-envelope"></i></span>
+                            <input type="text" name="customer_mail" id="customer_mail" class="form-control"  value="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6"><label for="address">Customer Address:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon bg-blue"><i class="fa fa-map-marker"></i></span>
+                            <input type="text" name="customer_address" id="customer_address" class="form-control"  value="">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6"><label for="quantity">Quantity:</label>
+                        <input type="number" name="purchase_quantity" id="purchase_quantity" class="form-control" value="1" max="">
+                    </div>
+                    <div class="form-group col-md-6"><label for="total">Total:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">&#8358;</span>
+                            <input type="number" id="total" class="form-control" value="">
                             </div>
-                        </div>
-                        <div class="form-group col-md-6"><label for="rate">Stock:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon bg-blue"><i class="fa fa-truck"></i></span>
-                                <input type="text" id="stock" class="form-control" disabled value="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6"><label for="customer">Customer Name:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon bg-blue"><i class="fa fa-user"></i></span>
-                                <input type="text" name="customer" id="customer" class="form-control"  value="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6"><label for="phone">Customer Phone:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon bg-blue"><i class="fa fa-phone"></i></span>
-                                <input type="text" name="phone" id="phone" class="form-control"  value="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6"><label for="mail">Customer Mail:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon bg-blue"><i class="fa fa-envelope"></i></span>
-                                <input type="text" name="mail" id="mail" class="form-control"  value="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6"><label for="address">Customer Address:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon bg-blue"><i class="fa fa-map-marker"></i></span>
-                                <input type="text" name="address" id="address" class="form-control"  value="">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6"><label for="quantity">Quantity:</label>
-                            <input type="number" id="quantity" class="form-control" value="1" max="">
-                        </div>
-                        <div class="form-group col-md-6"><label for="quantity">Total:</label>
-                            <div class="input-group">
-                                <span class="input-group-addon">&#8358;</span>
-                                <input type="number" id="total" class="form-control" value="">
-                                </div>
-                        </div>
+                    </div>
 
-                        <center>
-                            <button type="cancel" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Close</button>
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-shopping-cart"></i>&nbsp; Purchase</button>
-                        </center>  
-                    </div>          
-                <!-- </form> -->
+                    <center>
+                        <button type="cancel" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Close</button>
+                        <button onclick="register_purchase()" class="btn btn-danger"><i class="fa fa-shopping-cart"></i>&nbsp; Purchase</button>
+                    </center>  
+                <div>
             </div>
             <div class="modal-footer">
             
@@ -223,13 +219,53 @@
                     $("#quantity").attr({
                         "max" : stock
                     });
+                    $('#image').html(data.status.product_images);
+                    $('#total').val(data.purchase.selling_price *1);
                     $('#modal-info').modal('show');
                 }
             });
         }
-        $('#quantity').change(function(){
+
+        function register_purchase(){
+            var product_name = $('#product_name').val();
+            var size = $('#size').val();
+            // alert(size);
             var rate = $('#rate').val();
-            var total =  $('#quantity').val() * rate;
+            var customer_name = $('#customer_name').val();
+            var customer_phone = $('#customer_phone').val();
+            var customer_mail = $('#customer_mail').val();
+            var customer_address = $('#customer_address').val();
+            var purchase_quantity = $('#purchase_quantity').val();
+            var total = $('#total').val();
+            var data =    
+            $.ajax({
+                url: '/purchase',
+                method: 'post',
+                data: {
+                    _token: '{{csrf_token()}}',
+                    'product_name':product_name,
+                    'size':size,
+                    'rate':rate,
+                    'customer_name':customer_name,
+                    'customer_phone':customer_phone,
+                    'customer_mail':customer_mail,
+                    'customer_address':customer_address,
+                    'purchase_quantity':purchase_quantity,
+                    'total':total,_token: '{{csrf_token()}}',
+                },              
+                success: function(data){
+                    var content = $('.modal-body').html();
+                    $('.modal-body').html(data.status);
+                    setTimeout(() => {
+                        $('#modal-info').modal('hide');
+                        $('.modal-body').html(content);
+                    }, 4000);
+                }
+            });
+        }
+        $('#purchase_quantity').change(function(){
+            var rate = $('#rate').val();
+            var total =  $('#purchase_quantity').val() * rate;
             $('#total').val(total);
         });
     </script>
