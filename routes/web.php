@@ -1,5 +1,7 @@
 <?php
-
+    function money($var){
+        return '&#8358;'.$var;
+    }
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +24,6 @@ Route::resource('brands', 'BrandController');
 Route::resource('supplies', 'SuppliesController');
 Route::post('/supply', 'SupplierSuppliesController@create');
 
-Route::post('/purchase', 'ajaxController@register');
 Route::post('/search', 'ajaxController@search');
 Route::post('/itempurchase/{product}', 'ajaxController@show');
 
@@ -32,4 +33,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/search', 'ajaxController@index');
-Route::resource('purchase', 'PurchasesController');
+Route::resource('sales', 'PurchasesController');
+Route::post('/sales/chart', 'PurchasesController@home');
+
+//Reports
+Route::get('/reports', 'ReportsController@index');

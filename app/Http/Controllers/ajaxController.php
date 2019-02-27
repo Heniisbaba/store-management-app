@@ -24,15 +24,10 @@ class ajaxController extends Controller
         ]);
         $text = '%'.$data['search'].'%';
         $products = DB::table('products')->where('product_name','like',$text)->get();
-        foreach ($products as $product) {
-            $images = json_decode($product->product_images,true); 
-            $image = $images[0];
-            $product->product_images = $image;
-        }
         return response()->json(['success' => $products]);
     }
-    public function register()
+    public function damn()
     {
-
+        return view('damn');
     }
 }

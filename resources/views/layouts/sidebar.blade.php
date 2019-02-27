@@ -45,7 +45,7 @@
         <li><a href="/brands"><i class="fa fa-link"></i> <span>Brands</span>
         <span class="pull-right-container"><small class="label pull-right bg-green">0</small></span></a>
         </li>
-        <li class=""><a href="/products"><i class="fa fa-dollar"></i><span>Sales</span></a></li>
+        <li class=""><a href="/sales"><i class="fa fa-dollar"></i><span>Sales</span></a></li>
         <li class=""><a href="/products"><i class="fa fa-send"></i><span>Messages</span></a></li>
         <li class=""><a href="/products"><i class="fa fa-bar-chart"></i><span>Reports</span></a></li>
         <li class="treeview">

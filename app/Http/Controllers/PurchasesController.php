@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Purchase;
+use App\Product;
 
 class PurchasesController extends Controller
 {
@@ -14,7 +16,18 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        //
+        $purchases = Purchase::paginate(10);
+        return view('sales.index', compact('purchases'));
+    }
+
+    public function home()
+    {
+        $day = date('d',time()-30);
+        $from = date('Y-m-d',strtotime( '-1 month', time()));
+        $to = date('Y-m-d H:m:i',time());
+
+        $purchase = Purchase::whereBetween('created_at', [$from, $to])->get();
+        return response()->json([$tok]);
     }
 
     /**
@@ -49,7 +62,11 @@ class PurchasesController extends Controller
             $data['customer_mail'] = 'Anoymous';
             $data['customer_address'] = 'Anoymous';
         }
-        // $data = request()->all();
+        $id = $request['product_id'];
+        $bought = $data['purchase_quantity'];
+        $product = Product::findOrFail($id);
+        $product->stock_quantity = $product->stock_quantity - $bought;
+        $product->save(); 
         Purchase::create($data);
         return response()->json(['status' => $data['product_name'].' was successfully purchased']);
     }

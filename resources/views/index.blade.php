@@ -14,7 +14,68 @@
 @endsection
 
 @section('content')
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+        <div class="inner">
+            <h3>150</h3>
 
+            <p>Sales</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-bag"></i>
+        </div>
+        <a href="/sales" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+        <div class="inner">
+            <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+            <p>Bounce Rate</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+        <div class="inner">
+            <h3>44</h3>
+
+            <p>User Registrations</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+        <div class="inner">
+            <h3>65</h3>
+
+            <p>Unique Visitors</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+<!-- ./col -->
+</div>
 
 <div class="col-md-6">
     <div class="box box-danger">
@@ -72,7 +133,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                <p id="image"></p>
+                    <input type="hidden" name="id" id="product_id" value="">
                     <div class="form-group col-md-6"><label for="name">Name:</label>
                         <input type="text" id="product_name" disabled value="" class="form-control">
                     </div>
@@ -210,6 +271,7 @@
                     _token: '{{csrf_token()}}',
                 },
                 success: function(data){
+                    $('#product_id').val(data.purchase.id);
                     $('#product_name').val(data.purchase.product_name);
                     $('#size').val(data.purchase.physical_quantity+' '+data.purchase.physical_quantity_units);
                     $('#quantity').val(1);
@@ -219,7 +281,7 @@
                     $("#quantity").attr({
                         "max" : stock
                     });
-                    $('#image').html(data.status.product_images);
+                    // $('#image').html(data.images[0]);
                     $('#total').val(data.purchase.selling_price *1);
                     $('#modal-info').modal('show');
                 }
@@ -227,6 +289,7 @@
         }
 
         function register_purchase(){
+            var product_id = $('#product_id').val();
             var product_name = $('#product_name').val();
             var size = $('#size').val();
             // alert(size);
@@ -239,10 +302,11 @@
             var total = $('#total').val();
             var data =    
             $.ajax({
-                url: '/purchase',
+                url: '/sales',
                 method: 'post',
                 data: {
                     _token: '{{csrf_token()}}',
+                    'product_id':product_id,
                     'product_name':product_name,
                     'size':size,
                     'rate':rate,
@@ -268,6 +332,7 @@
             var total =  $('#purchase_quantity').val() * rate;
             $('#total').val(total);
         });
+
     </script>
     
 @endsection

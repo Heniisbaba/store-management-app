@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-<div class="col-md-10">
+<div class="col-md-8">
     <div class="box box-danger">
         <div class="box-header with-border">
             <h3 class="box-title">Products</h3>
@@ -25,7 +25,6 @@
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Image</th>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Brand</th>
@@ -38,15 +37,16 @@
                 <tbody>
                     @foreach($products as $product)
                     <?php 
+                        $i = 1;
                         $images = json_decode($product->product_images,true); 
                         $image = $images[0];
+                        $i++;
                     ?>
-                        <tr>
-                            <td><img src="/images/{{ $image }}" width="200px" height="150px" ></td>
+                        <tr onmouseover="display_image('/images/{{ $image }}')">
                             <td>{{ $product->product_name }}</td>
                             <td>{{ $product->category_id }}</td>
                             <td>{{ $product->brand_id }}</td>
-                            <td>{{ $product->selling_price }}</td>
+                            <td>{!! money($product->selling_price) !!}</td>
                             <td>{{ $product->stock_quantity }}</td>
                             <td>{{ $product->physical_quantity.' '.$product->physical_quantity_units}}</td>
                             <td>{{ date('d M Y H:i A',strtotime($product->updated_at)) }}</td>
@@ -55,10 +55,25 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                  
+                        {{ $products->links() }}
                     </tr>
                 </tfoot>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title">Products</h3>
+            <div class="box-tools pull-right">
+            </div>
+        </div>
+        <div class="box-body">
+            <center>
+                <img src="" id="img_div" class="img img-responsive" alt="Image">
+            </center>
         </div>
     </div>
 </div>
@@ -88,5 +103,10 @@
             'autoWidth'   : false
             })
         })
+
+        function display_image(url) {
+            document.getElementById('img_div').src = url;
+            img.src = url;
+        }
     </script>
 @endsection
