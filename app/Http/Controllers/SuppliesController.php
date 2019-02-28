@@ -58,9 +58,11 @@ class SuppliesController extends Controller
      * @param  \App\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show(Supplies $supply)
     {
-        return view('supplies.index', compact('supplier'));
+        $products = Product::all();
+        $suppliers = Supplier::all();
+        return view('supplies.show', compact('supply','suppliers','products'));
     }
 
     /**

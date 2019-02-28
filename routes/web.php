@@ -1,4 +1,5 @@
 <?php
+
     function money($var){
         return '&#8358;'.$var;
     }
@@ -13,9 +14,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+
 
 Route::resource('admin', 'AdminsController');
 Route::resource('products', 'ProductsController');
@@ -35,6 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'ajaxController@index');
 Route::resource('sales', 'PurchasesController');
 Route::post('/sales/chart', 'PurchasesController@home');
+Route::resource('messages', 'MessagesController');
 
 //Reports
 Route::get('/reports', 'ReportsController@index');

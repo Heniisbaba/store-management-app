@@ -88,7 +88,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <span class="input-group-addon bg-navy">Search</span>
-                    <input type="search" name="search" id="input-search" class="form-control" value="" required="required" placeholder="Search by Product name">
+                    <input type="search" name="search" id="input-search" autofocus class="form-control" value="" required="required" placeholder="Search by Product name">
                 </div>
             </div>
 
@@ -246,7 +246,11 @@
                             table += '<thead><tr><th>Action</th><th>Products</th><th>Quantity</th><th>Stock</th><th>Price</th></tr></thead>';
                             table += '<tbody>';
                             for (let i = 0; i < data.success.length; i++) {
-                                table += '<tr><td><button onclick="purchase('+data.success[i].id+')" class="btn btn-xs btn-success"><i class="fa fa-shopping-cart"></i></button></td>';
+                                let id = data.success[i].id;
+                                table += '<tr><td>'
+                                +'<button onclick="purchase('+id+')" class="btn btn-xs btn-success" title="purchase"><i class="fa fa-shopping-cart"></i></button>'
+                                +'<a href="products/'+data.success[i].id+'" class="btn btn-xs btn-danger pull-right" title="view"><i class="fa fa-edit"></i></a>'
+                                +'</td>';
                                 table += '<td>'+data.success[i].product_name+'</td>';
                                 table += '<td>'+data.success[i].physical_quantity+' '+data.success[i].physical_quantity_units+'</td>';
                                 table += '<td>'+data.success[i].stock_quantity+' units</td>';

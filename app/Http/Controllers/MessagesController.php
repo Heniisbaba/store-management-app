@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Supplies;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Notifications\ProductsSupplied;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\DB;
 
-class SupplierSuppliesController extends Controller
+class MessagesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $notifications = auth()->user()->notifications;
+        return view('messages.index', compact('notifications'));
     }
 
     /**
@@ -31,27 +32,8 @@ class SupplierSuppliesController extends Controller
      */
     public function create()
     {
-        $data = request()->validate([
-            'supplier_id' => 'numeric|required',
-            'goods_supplied' => 'required',
-            'description' => 'required|string|min:8',
-            'complete' => ''
-        ]);
-        $desc = $data['description'];
-        $goods = $data['goods_supplied'];
-        $data['goods_supplied'] = implode(',',$data['goods_supplied']);
-        $products = Product::all()->whereIn('id', $goods);
-        $data['complete'] = request()->has('complete');
-        $id = Supplies::create($data)->id;
-        foreach($products as $product){
-            $update = ['updated_at' => time() ];
-            $product->update($update);
-            $product_name[] = $product->product_name;
-        }
-        auth()->user()->notify(new ProductsSupplied($id,$product_name,$desc));
-        return back();
+        //
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -72,7 +54,8 @@ class SupplierSuppliesController extends Controller
      */
     public function show($id)
     {
-        //
+        $notifications = \auth()->user()->notifications->where('id','=',$id);
+        return $notifications;
     }
 
     /**
