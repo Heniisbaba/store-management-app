@@ -54,8 +54,9 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        $notifications = \auth()->user()->notifications->where('id','=',$id);
-        return $notifications;
+        $count = count(\auth()->user()->notifications);
+        $notification = \auth()->user()->notifications->find($id);
+        return view('messages.show', compact('notification','count'));
     }
 
     /**

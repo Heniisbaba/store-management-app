@@ -14,193 +14,319 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-aqua">
-        <div class="inner">
-            <h3>150</h3>
-
-            <p>Sales</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-bag"></i>
-        </div>
-        <a href="/sales" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-        <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-            <p>Bounce Rate</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-stats-bars"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-yellow">
-        <div class="inner">
-            <h3>44</h3>
-
-            <p>User Registrations</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-person-add"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-red">
-        <div class="inner">
-            <h3>65</h3>
-
-            <p>Unique Visitors</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-    </div>
-<!-- ./col -->
-</div>
-
-<div class="col-md-6">
-    <div class="box box-danger">
-        <div class="box-header with-border">
-            <h3 class="box-title">Register purchase</h3>
-            <div class="box-tools pull-right">
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-aqua text-center">
+            <span class="info-box-icon bg-aqua-active"><i class="ion ion-ios-gear-outline"></i></span>
+    
+            <div class="info-box-content">
+                <span class="info-box-text">Products</span>
+                <span class="info-box-number">{{ $products->count() }}</span>
             </div>
+            <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
         </div>
-        <div class="box-body">
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon bg-navy">Search</span>
-                    <input type="search" name="search" id="input-search" autofocus class="form-control" value="" required="required" placeholder="Search by Product name">
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-red text-center">
+            <span class="info-box-icon bg-red-active"><i class="fa fa-shopping-cart"></i></span>
+    
+            <div class="info-box-content">
+                <span class="info-box-text">Sales</span>
+                <span class="info-box-number">{{ $purchases->count() }}</span>
+            </div>
+            <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+    
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box text-center bg-lime-active">
+                <span class="info-box-icon bg-lime"><i class="fa fa-money"></i></span>
+    
+                <div class="info-box-content">
+                    <span class="info-box-text">Outlook</span>
+                    <span class="info-box-number"></span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box bg-yellow text-center">
+            <span class="info-box-icon bg-yellow-active"><i class="ion ion-ios-pricetag-outline"></i></span>
+    
+            <div class="info-box-content">
+                <span class="info-box-text">Inventory</span>
+                <span class="info-box-number">{{ $products->sum('stock_quantity') }}</span>
+            </div>
+            <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Register purchase</h3>
+                    <div class="box-tools pull-right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon bg-navy">Search</span>
+                            <input type="search" name="search" id="input-search" autofocus class="form-control" value="" required="required" placeholder="Search by Product name">
+                        </div>
+                    </div>
+    
+                    <div id="result"></div>
                 </div>
             </div>
-
-            <div id="result"></div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-6">
-    <div class="box box-danger">
-        <div class="box-header with-border">
-            <h3 class="box-title">Stock</h3>
-            <div class="box-tools pull-right">
+    
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Stock</h3>
+                    <div class="box-tools pull-right">
+                    </div>
+                </div>
+                <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead><tr><th>Products</th><th>Quantity</th><th>Stock</th><th>Last Supply</th></tr></thead>
+                        <tbody>
+                        @foreach($products as $product)
+                            <tr>
+                                <td>{{ $product->product_name }}</td>
+                                <td>{{ $product->physical_quantity.' '.$product->physical_quantity_units}}</td>
+                                <td>{{ $product->stock_quantity.' units' }}</td>
+                                <td>{{ date('d M Y H:i A',strtotime($product->updated_at)) }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="box-body">
-        <table id="example2" class="table table-bordered table-hover">
-            <thead><tr><th>Products</th><th>Quantity</th><th>Stock</th><th>Last Supply</th></tr></thead>
-                <tbody>
-                @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->product_name }}</td>
-                        <td>{{ $product->physical_quantity.' '.$product->physical_quantity_units}}</td>
-                        <td>{{ $product->stock_quantity.' units' }}</td>
-                        <td>{{ date('d M Y H:i A',strtotime($product->updated_at)) }}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+    
+        <div class="col-md-6">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Today Sales</h3>
 
-
-<div class="modal fade" id="modal-info">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><i class="fa fa-shopping-cart"></i> Make purchase</h4>
+                    <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @if(count($purchases))
+                                @foreach($purchaseToday as $purchase)
+                                <tr>
+                                    <td>{{ $purchase->id }}</td>
+                                    <td>{{ $purchase->product_name }}</td>
+                                    <td>{{ $purchase->purchase_quantity }}</td>
+                                    <td>{{ date('d M Y H:i A',strtotime($purchase->updated_at)) }}</td>
+                                </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+            <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a href="/sales" class="btn btn-sm btn-default btn-flat pull-right">Mail to admin</a>
+                </div>
+            <!-- /.box-footer -->
             </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <input type="hidden" name="id" id="product_id" value="">
-                    <div class="form-group col-md-6"><label for="name">Name:</label>
-                        <input type="text" id="product_name" disabled value="" class="form-control">
+
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Latest Sales</h3>
+    
+                    <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
-                    <div class="form-group col-md-6"><label for="size">Size:</label>
-                        <input type="text"  name="size" id="size" disabled value="" class="form-control">
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @if(count($purchases))
+                                @foreach($purchases as $purchase)
+                                <tr>
+                                    <td>{{ $purchase->id }}</td>
+                                    <td>{{ $purchase->product_name }}</td>
+                                    <td>{{ $purchase->purchase_quantity }}</td>
+                                    <td>{{ date('d M Y H:i A',strtotime($purchase->updated_at)) }}</td>
+                                </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="form-group col-md-6"><label for="rate">Rate/Price:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon bg-blue">&#8358;</span>
-                            <input type="text" id="rate" class="form-control" disabled value="">
-                        </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a href="/sales" class="btn btn-sm btn-default btn-flat pull-right">View All Sales</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+    
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Recently Added Products</h3>
+    
+                    <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
-                    <div class="form-group col-md-6"><label for="rate">Stock:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon bg-blue"><i class="fa fa-truck"></i></span>
-                            <input type="text" id="stock" class="form-control" disabled value="">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6"><label for="customer_name">Customer Name:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon bg-blue"><i class="fa fa-user"></i></span>
-                            <input type="text" name="customer_name" id="customer_name" class="form-control"  value="">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6"><label for="phone">Customer Phone:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon bg-blue"><i class="fa fa-phone"></i></span>
-                            <input type="text" name="customer_phone" id="customer_phone" class="form-control"  value="">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6"><label for="mail">Customer Mail:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon bg-blue"><i class="fa fa-envelope"></i></span>
-                            <input type="text" name="customer_mail" id="customer_mail" class="form-control"  value="">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6"><label for="address">Customer Address:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon bg-blue"><i class="fa fa-map-marker"></i></span>
-                            <input type="text" name="customer_address" id="customer_address" class="form-control"  value="">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6"><label for="quantity">Quantity:</label>
-                        <input type="number" name="purchase_quantity" id="purchase_quantity" class="form-control" value="1" max="">
-                    </div>
-                    <div class="form-group col-md-6"><label for="total">Total:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">&#8358;</span>
-                            <input type="number" id="total" class="form-control" value="">
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+                    @foreach($products as $product)
+                    <?php 
+                        $images = json_decode($product->product_images,true); 
+                        $image = $images[0];
+                    ?>
+                        <li class="item">
+                            <div class="product-img">
+                            <img src="/images/{{$image}}" alt="Product Image">
                             </div>
-                    </div>
-
-                    <center>
-                        <button type="cancel" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Close</button>
-                        <button onclick="register_purchase()" class="btn btn-danger"><i class="fa fa-shopping-cart"></i>&nbsp; Purchase</button>
-                    </center>  
-                <div>
-            </div>
-            <div class="modal-footer">
-            
+                            <div class="product-info">
+                            <a href="/products/{{ $product->id }}" class="product-title">{{ $product->product_name }}
+                                <span class="label bg-navy pull-right">{!! money($product->selling_price) !!}</span></a>
+                            <span class="product-description">
+                                    {{ $product->physical_quantity.' '.$product->physical_quantity_units }}
+                                </span>
+                            </div>
+                        </li>
+                    @endforeach
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="javascript:void(0)" class="uppercase">View All Products</a>
+                </div>
+                <!-- /.box-footer -->
+                </div>
+                <!-- /.box -->
             </div>
         </div>
-    <!-- /.modal-content -->
+        
+        <div class="modal fade" id="modal-info">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="fa fa-shopping-cart"></i> Make purchase</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <input type="hidden" name="id" id="product_id" value="">
+                            <div class="form-group col-md-6"><label for="name">Name:</label>
+                                <input type="text" id="product_name" disabled value="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6"><label for="size">Size:</label>
+                                <input type="text"  name="size" id="size" disabled value="" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6"><label for="rate">Rate/Price:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-blue">&#8358;</span>
+                                    <input type="text" id="rate" class="form-control" disabled value="">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6"><label for="rate">Stock:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-blue"><i class="fa fa-truck"></i></span>
+                                    <input type="text" id="stock" class="form-control" disabled value="">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6"><label for="customer_name">Customer Name:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-blue"><i class="fa fa-user"></i></span>
+                                    <input type="text" name="customer_name" id="customer_name" class="form-control"  value="">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6"><label for="phone">Customer Phone:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-blue"><i class="fa fa-phone"></i></span>
+                                    <input type="text" name="customer_phone" id="customer_phone" class="form-control"  value="">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6"><label for="mail">Customer Mail:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-blue"><i class="fa fa-envelope"></i></span>
+                                    <input type="text" name="customer_mail" id="customer_mail" class="form-control"  value="">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6"><label for="address">Customer Address:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon bg-blue"><i class="fa fa-map-marker"></i></span>
+                                    <input type="text" name="customer_address" id="customer_address" class="form-control"  value="">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6"><label for="quantity">Quantity:</label>
+                                <input type="number" name="purchase_quantity" id="purchase_quantity" class="form-control" value="1" max="">
+                            </div>
+                            <div class="form-group col-md-6"><label for="total">Total:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">&#8358;</span>
+                                    <input type="number" id="total" class="form-control" value="">
+                                </div>
+                            </div>
+    
+                            <center>
+                                <button type="cancel" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Close</button>
+                                <button onclick="register_purchase()" class="btn btn-danger"><i class="fa fa-shopping-cart"></i>&nbsp; Purchase</button>
+                            </center>  
+                        <div>
+                    </div>
+                </div>
+            <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal -->
 </div>
-<!-- /.modal -->
+
 
 @endsection
 
@@ -326,8 +452,8 @@
                     $('.modal-body').html(data.status);
                     setTimeout(() => {
                         $('#modal-info').modal('hide');
-                        $('.modal-body').html(content);
-                    }, 4000);
+                        location.reload();
+                    }, 2000);
                 }
             });
         }

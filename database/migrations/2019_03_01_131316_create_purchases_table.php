@@ -14,12 +14,13 @@ class CreatePurchasesTable extends Migration
     public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('customer_name');
             $table->string('customer_phone');
             $table->string('customer_mail');
             $table->text('customer_address');
             $table->string('product_name');
+            $table->unsignedInteger('product_id');
             $table->string('size');
             $table->string('rate');
             $table->string('purchase_quantity');
@@ -38,3 +39,4 @@ class CreatePurchasesTable extends Migration
         Schema::dropIfExists('purchases');
     }
 }
+

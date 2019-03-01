@@ -21,8 +21,8 @@ class SuppliesController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::all();
-        $supplies = Supplies::all();
+        $suppliers = Supplier::paginate(4);
+        $supplies = Supplies::paginate(8);
         $products = Product::all();
         return view('supplies.index',compact('suppliers','products','supplies'));
     }
@@ -73,8 +73,10 @@ class SuppliesController extends Controller
      */
     public function edit($id)
     {
+        $products = Product::all();
+        $suppliers = Supplier::all();
         $supplier = Supplier::find($id);
-        return view('supplies.edit', compact('supplier'));
+        return view('supplies.edit', compact('supplier','suppliers','products'));
     }
 
     /**

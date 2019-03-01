@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Supplier;
+use App\Supplies;
+use App\Purchase;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -19,8 +21,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        $supplies = Supplies::all();
+        $purchases = Purchase::orderBy('id','desc')->take(10)->get();
         $products = Product::paginate(15);
-        return view('products.index',compact('products'));
+        return view('products.index',compact('products','purchases'));
     }
 
     /**
@@ -78,7 +82,10 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        $count['products'] = count(Product::all());
+        $count['purchases'] = count(Purchase::all());
+        $products = Product::paginate(5);
+        return view('products.show', compact('product','products','count'));
     }
 
     /**

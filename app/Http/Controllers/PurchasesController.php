@@ -16,15 +16,18 @@ class PurchasesController extends Controller
      */
     public function index()
     {
+        $from = date('Y-m-d H:m:i',strtotime( '-1 days'));
+        $to = date('Y-m-d H:m:i');
+        $purchaseToday = Purchase::whereBetween('created_at', [$from, $to])->get();
         $purchases = Purchase::paginate(10);
-        return view('sales.index', compact('purchases'));
+        return view('sales.index', compact('purchases','purchaseToday'));
     }
 
     public function home()
     {
-        $day = date('d',time()-30);
-        $from = date('Y-m-d',strtotime( '-1 month', time()));
-        $to = date('Y-m-d H:m:i',time());
+        // $day = date('d',time()-30);
+        $from = date('Y-m-d H:m:i',strtotime( '-1 days'));
+        // $to = date('Y-m-d H:m:i',time());
 
         $purchase = Purchase::whereBetween('created_at', [$from, $to])->get();
         return response()->json([$tok]);
@@ -51,6 +54,7 @@ class PurchasesController extends Controller
         
         $data = request()->validate([
             'product_name' => 'required',
+            'product_id' => 'required',
             'size' => 'required',
             'rate' => 'required',
             'purchase_quantity' => 'required',

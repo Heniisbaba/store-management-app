@@ -47,18 +47,6 @@
         </li>
         <li class=""><a href="/sales"><i class="fa fa-dollar"></i><span>Sales</span></a></li>
         <li class=""><a href="/messages"><i class="fa fa-send"></i><span>Messages</span></a></li>
-        <li class=""><a href="/products"><i class="fa fa-bar-chart"></i><span>Reports</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
-          </ul>
-        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

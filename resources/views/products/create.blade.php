@@ -14,7 +14,7 @@
 
 @section('content')
 <?php $name = $password = $email = $permissions = $confirm = '';?>
-<div class="col-md-6">
+<div class="col-md-6 col-md-offset-3">
     <div class="box box-danger">
         <div class="box-header with-border">
             <h3 class="box-title">Add a new product</h3>
