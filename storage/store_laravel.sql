@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2019 at 04:37 PM
+-- Generation Time: Mar 01, 2019 at 05:10 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -92,7 +92,36 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (39, '2019_02_12_130001_create_supplies_table', 1),
 (40, '2019_02_13_104454_create_supplies_table', 2),
 (41, '2019_02_13_110620_create_supplies_table', 3),
-(42, '2019_02_18_115933_create_supplies_table', 4);
+(42, '2019_02_18_115933_create_supplies_table', 4),
+(43, '2019_02_21_161016_create_purchases_table', 5),
+(44, '2019_02_25_141902_create_purchases_table', 6),
+(45, '2019_02_28_114558_create_notifications_table', 7),
+(46, '2019_03_01_114518_create_purchases_table', 8),
+(47, '2019_03_01_131316_create_purchases_table', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
+  `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('14565b4d-6a83-457b-8b3b-242efd7d52c5', 'App\\Notifications\\ProductsSupplied', 'App\\User', 1, '{\"subject\":\"New supplies.\",\"line\":{\"0\":\"The following products were supplied to the store.\",\"item\":\"Cocacola 33cl can, Mat Corn flakes, Pepsi pet bottle\",\"desc\":\"Received by mateo\"},\"action\":\"View Supply\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/supplies\\/27\",\"thanks\":\"Regards\",\"name\":\"Admin\"}', NULL, '2019-02-28 15:38:49', '2019-02-28 15:38:49');
 
 -- --------------------------------------------------------
 
@@ -135,8 +164,40 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `product_images`, `category_id`, `brand_id`, `purchase_cost`, `selling_price`, `stock_quantity`, `physical_quantity_units`, `physical_quantity`, `supplier_id`, `deleted`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Cocacola 33cl can', '[\"images.jpg\"]', 1, 1, 80, 100, 20, 'cl', '33', 1, 0, '2019-02-12 14:42:47', '2019-02-18 14:01:30', NULL),
-(2, 'Mat Corn flakes', '[\"download.jpg\"]', 1, 1, 650, 700, 50, 'gramme', '450', 1, 0, '2019-02-13 08:44:11', '2019-02-18 14:15:16', NULL);
+(1, 'Cocacola 33cl can', '[\"images.jpg\"]', 1, 1, 80, 100, 14, 'cl', '33', 1, 0, '2019-02-12 14:42:47', '2019-03-01 12:17:44', NULL),
+(2, 'Mat Corn flakes', '[\"download.jpg\"]', 1, 1, 650, 700, 49, 'gramme', '450', 1, 0, '2019-02-13 08:44:11', '2019-03-01 12:18:46', NULL),
+(3, 'Pepsi pet bottle', '[\"download.jpg\",\"images.jpg\"]', 1, 1, 85, 100, 19, 'cl', '50', 1, 0, '2019-02-25 15:14:17', '2019-03-01 12:19:54', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchases`
+--
+
+CREATE TABLE `purchases` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `customer_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_mail` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` int(10) UNSIGNED NOT NULL,
+  `size` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rate` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `purchase_quantity` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `customer_name`, `customer_phone`, `customer_mail`, `customer_address`, `product_name`, `product_id`, `size`, `rate`, `purchase_quantity`, `total`, `created_at`, `updated_at`) VALUES
+(1, 'Anoymous', 'Anoymous', 'Anoymous', 'Anoymous', 'Cocacola 33cl can', 1, '33 cl', '100', '1', '100', '2019-02-28 12:17:44', '2019-03-01 12:17:44'),
+(2, 'Anoymous', 'Anoymous', 'Anoymous', 'Anoymous', 'Mat Corn flakes', 2, '450 gramme', '700', '1', '700', '2019-03-01 12:18:46', '2019-03-01 12:18:46'),
+(3, 'Anoymous', 'Anoymous', 'Anoymous', 'Anoymous', 'Pepsi pet bottle', 3, '50 cl', '100', '1', '100', '2019-03-01 12:19:54', '2019-03-01 12:19:54');
 
 -- --------------------------------------------------------
 
@@ -194,7 +255,19 @@ INSERT INTO `supplies` (`id`, `supplier_id`, `goods_supplied`, `description`, `c
 (12, 0, '1', 'Supplied by mateo', 1, '2019-02-18 13:59:58', '2019-02-18 13:59:58'),
 (13, 0, '1', 'Supplied by mateo', 1, '2019-02-18 14:01:30', '2019-02-18 14:01:30'),
 (14, 1, '2', 'Received by mateo', 1, '2019-02-18 14:03:44', '2019-02-18 14:03:44'),
-(15, 1, '2', 'Received by mateo', 1, '2019-02-18 14:03:55', '2019-02-18 14:03:55');
+(15, 1, '2', 'Received by mateo', 1, '2019-02-18 14:03:55', '2019-02-18 14:03:55'),
+(16, 0, '3', 'Received by mateo', 1, '2019-02-26 14:44:56', '2019-02-26 14:44:56'),
+(17, 0, '3', 'La vida local', 1, '2019-02-28 11:50:28', '2019-02-28 11:50:28'),
+(18, 0, '3', 'La vida local', 1, '2019-02-28 11:53:36', '2019-02-28 11:53:36'),
+(19, 0, '3', 'La vida local', 1, '2019-02-28 11:54:25', '2019-02-28 11:54:25'),
+(20, 3, '3', 'La vida local', 1, '2019-02-28 12:50:19', '2019-02-28 12:50:19'),
+(21, 3, '3', 'La vida local', 1, '2019-02-28 12:51:11', '2019-02-28 12:51:11'),
+(22, 0, '3', 'La vida local', 1, '2019-02-28 12:53:01', '2019-02-28 12:53:01'),
+(23, 0, '3', 'La vida local', 1, '2019-02-28 12:58:12', '2019-02-28 12:58:12'),
+(24, 0, '3', 'La vida local', 1, '2019-02-28 13:01:00', '2019-02-28 13:01:00'),
+(25, 3, '1,2,3', 'Received by mateo', 1, '2019-02-28 13:04:53', '2019-02-28 13:04:53'),
+(26, 3, '3', 'La vida local', 1, '2019-02-28 15:05:51', '2019-02-28 15:05:51'),
+(27, 2, '1,2,3', 'Received by mateo', 1, '2019-02-28 15:38:49', '2019-02-28 15:38:49');
 
 -- --------------------------------------------------------
 
@@ -250,6 +323,13 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -259,6 +339,12 @@ ALTER TABLE `password_resets`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -306,13 +392,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9457;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -324,7 +416,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supplies`
 --
 ALTER TABLE `supplies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`
